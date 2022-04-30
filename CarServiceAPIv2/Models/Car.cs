@@ -10,6 +10,6 @@ namespace CarServiceAPIv2.Models
         public string Model { get; set; }
         public string Name { get; set; }
         public string Number { get; set; }
-        public int userId { get; set; }
+        public int UserId { get; set; }
     }
 }
