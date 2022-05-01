@@ -50,11 +50,11 @@ namespace CarServiceAPIv2.Controllers
         }
 
         [HttpGet("UserCars")]
-        public ActionResult<List<Car>> UserCars(int userId)
+        public ActionResult<Dictionary<int,string>> UserCars(int userId)
         {
             try
             {
-                return db.Cars.Where(i => i.UserId == userId).ToList();
+                return db.Cars.Where(i => i.UserId == userId).Select(i => new { i.Id, i.Model }).ToDictionary(i=>i.Id,i=>i.Model);
             }
             catch
             {

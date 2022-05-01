@@ -9,7 +9,8 @@ namespace CarServiceAPIv2.Models
     {
         public string Type { get; set; }
         public string Description { get; set; }
-        public int CarId { get; set; }
         public int UserId { get; set; }
+        public int CarId { get; set; }
+        public string Status { get; set; }
     }
 }
