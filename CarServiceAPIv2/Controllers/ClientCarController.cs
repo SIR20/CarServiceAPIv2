@@ -13,8 +13,8 @@ namespace CarServiceAPIv2.Controllers
     {
         public CarController(AppContext context) : base(context) { }
 
-        [HttpPost("CreateCar")]
-        public async Task<ActionResult> CreateCar(string model, string number, int userId)
+        [HttpPost("Create")]
+        public async Task<ActionResult> Create(string model, string number, int userId)
         {
             try
             {
@@ -32,20 +32,20 @@ namespace CarServiceAPIv2.Controllers
             }
             catch
             {
-                return BadRequest("Внутреняя ошибка сервера");
+                return BadRequest("Внутренняя ошибка сервера");
             }
         }
 
-        [HttpGet("CarInfo")]
-        public ActionResult<Car> CarInfo(int carId)
+        [HttpGet("Info")]
+        public ActionResult<Car> Info(int carId)
         {
             try
             {
-                return db.Cars.Where(i => i.Id == carId).ToList().Last();
+                return db.Cars.Where(i => i.Id == carId).FirstOrDefault();
             }
             catch
             {
-                return BadRequest("Внутрення ошибка сервера");
+                return BadRequest("Внутренняя ошибка сервера");
             }
         }
 
@@ -54,11 +54,11 @@ namespace CarServiceAPIv2.Controllers
         {
             try
             {
-                return db.Cars.Where(i => i.UserId == userId).Select(i => new { i.Id, i.Model }).ToDictionary(i=>i.Id,i=>i.Model);
+                return db.Cars.Where(i => i.UserId == userId).Select(i => new { i.Id, i.Model }).ToDictionary(i => i.Id, i => i.Model);
             }
             catch
             {
-                return BadRequest("Внутрення ошибка сервера");
+                return BadRequest("Пользователь не найден");
             }
         }
     }
