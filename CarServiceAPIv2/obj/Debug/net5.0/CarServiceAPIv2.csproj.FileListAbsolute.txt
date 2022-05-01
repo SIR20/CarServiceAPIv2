@@ -20,7 +20,6 @@ C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Mic
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -57,3 +56,4 @@ C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\Car
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\ref\CarServiceAPIv2.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.pdb
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.genruntimeconfig.cache
+C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

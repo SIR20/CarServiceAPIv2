@@ -9,11 +9,11 @@ namespace CarServiceAPIv2.Controllers
 {
     [Route("api/Task")]
     [ApiController]
-    public class TaskController : BaseController
+    public class ClientTaskController : BaseController
     {
-        public TaskController(AppContext context) : base(context) { }
+        public ClientTaskController(AppContext context) : base(context) { }
 
-        [HttpPost("CreateTask")]
+        [HttpPost("Create")]
         public async Task<ActionResult> CreateTask(string type, string description, int userId, int carId)
         {
             Models.Task task = new Models.Task()
@@ -29,10 +29,17 @@ namespace CarServiceAPIv2.Controllers
             return Ok(task.Id);
         }
 
-        [HttpGet("TaskInfo")]
+        [HttpGet("Info")]
         public ActionResult<Models.Task> TaskInfo(int taskId)
         {
-            return db.Tasks.Where(i => i.Id == taskId).ToList().Last();
+            try
+            {
+                return db.Tasks.Where(i => i.Id == taskId).FirstOrDefault();
+            }
+            catch
+            {
+                return BadRequest("Задачи не найдено");
+            }
         }
     }
 }
