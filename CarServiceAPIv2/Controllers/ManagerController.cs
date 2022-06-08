@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,15 +10,16 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using CarServiceAPIv2.Models.SupportModels;
 
 namespace CarServiceAPIv2.Controllers
 {
     [Route("api/Manager")]
     [ApiController]
-    public class ManagerLoginController : BaseController
+    public class ManagerController : BaseController
     {
         private readonly IConfiguration _configuration;
-        public ManagerLoginController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
+        public ManagerController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
 
         private string GenerateJwtToken(Worker worker)
         {
@@ -49,5 +49,45 @@ namespace CarServiceAPIv2.Controllers
 
             return BadRequest("Неверный логин или пароль");
         }
+
+
+
+        //User
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("User/Users")]
+        public ActionResult<List<SupportUser>> GetUsers()
+        {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+
+            return db.Users
+                    .Select(i => new SupportUser(i.Id, i.Name, i.Number, i.IsBan))
+                    .ToList();
+        }
+
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
+        [HttpDelete("User/DeleteUser")]
+        public async Task<ActionResult<User>> DeleteUser(int userId)
+        {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+
+            User user = db.Users.FirstOrDefault(i => i.Id == userId);
+            if (user != null)
+            {
+                if (user.IsBan) db.Users.Remove(user);
+                else user.IsBan = true;
+                await db.SaveChangesAsync();
+                return Ok(user);
+            }
+
+
+            return BadRequest("Пользователь не найден");
+
+        }
+
+        //Task
     }
 }
