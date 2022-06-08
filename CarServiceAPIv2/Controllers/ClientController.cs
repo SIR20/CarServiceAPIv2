@@ -19,10 +19,10 @@ namespace CarServiceAPIv2.Controllers
     [EnableCors("MyPolicy")]
     [Route("api/User")]
     [ApiController]
-    public class ClientUserController : BaseController
+    public class ClientController : BaseController
     {
         private readonly IConfiguration _configuration;
-        public ClientUserController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
+        public ClientController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
 
         private string GenerateJwtToken(User user)
         {
@@ -116,6 +116,87 @@ namespace CarServiceAPIv2.Controllers
             }
 
             return BadRequest("Пользователь не найден");
+        }
+
+        //Task
+        [HttpPost("Task/Create")]
+        public async Task<ActionResult> CreateTask(string type, string description, int userId, int carId)
+        {
+            Models.Task task = new Models.Task()
+            {
+                Type = type,
+                Description = description,
+                UserId = userId,
+                CarId = carId,
+                Status = "Waiting"
+            };
+            await db.Tasks.AddAsync(task);
+            await db.SaveChangesAsync();
+            return Ok(task.Id);
+        }
+
+        [HttpGet("Task/Info")]
+        public ActionResult<Models.Task> TaskInfo(int taskId)
+        {
+            try
+            {
+                return db.Tasks.Where(i => i.Id == taskId).FirstOrDefault();
+            }
+            catch
+            {
+                return BadRequest("Задачи не найдено");
+            }
+        }
+
+
+        //Car
+        [HttpPost("Car/Create")]
+        public async Task<ActionResult> Create(string model, string number, int userId)
+        {
+            try
+            {
+                Car car = new Car()
+                {
+                    Model = model,
+                    Name = "None",
+                    Number = number,
+                    UserId = userId
+                };
+
+                await db.Cars.AddAsync(car);
+                await db.SaveChangesAsync();
+                return Ok(car.Id);
+            }
+            catch
+            {
+                return BadRequest("Внутренняя ошибка сервера");
+            }
+        }
+
+        [HttpGet("Car/Info")]
+        public ActionResult<Car> Info(int carId)
+        {
+            try
+            {
+                return db.Cars.FirstOrDefault(i => i.Id == carId);
+            }
+            catch
+            {
+                return BadRequest("Внутренняя ошибка сервера");
+            }
+        }
+
+        [HttpGet("Car/UserCars")]
+        public ActionResult<Dictionary<int, string>> UserCars(int userId)
+        {
+            try
+            {
+                return db.Cars.Where(i => i.UserId == userId).Select(i => new { i.Id, i.Model }).ToDictionary(i => i.Id, i => i.Model);
+            }
+            catch
+            {
+                return BadRequest("Пользователь не найден");
+            }
         }
     }
 }
