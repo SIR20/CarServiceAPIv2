@@ -34,6 +34,12 @@ namespace CarServiceAPIv2
         {
             string con = "Server=(localdb)\\mssqllocaldb;Database=CarServiceStore;Trusted_Connection=True;";
             services.AddDbContext<Models.AppContext>(options => options.UseSqlServer(con));
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddControllers();
             services.AddSwaggerGen(swagger =>
             {
@@ -93,7 +99,6 @@ namespace CarServiceAPIv2
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -104,7 +109,7 @@ namespace CarServiceAPIv2
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors("MyPolicy");
             app.UseAuthorization();
             app.UseAuthentication();
 
