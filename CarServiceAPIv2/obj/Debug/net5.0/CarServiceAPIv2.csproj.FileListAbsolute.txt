@@ -5,7 +5,6 @@ C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Car
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\CarServiceAPIv2.runtimeconfig.json
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\CarServiceAPIv2.runtimeconfig.dev.json
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\CarServiceAPIv2.dll
-C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\ref\CarServiceAPIv2.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\CarServiceAPIv2.pdb
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
@@ -48,7 +47,6 @@ C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\Car
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\staticwebassets\CarServiceAPIv2.StaticWebAssets.Manifest.cache
-C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\staticwebassets\CarServiceAPIv2.StaticWebAssets.xml
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\scopedcss\bundle\CarServiceAPIv2.styles.css
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.RazorTargetAssemblyInfo.cache
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.csproj.CopyComplete
@@ -57,3 +55,5 @@ C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\ref
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.pdb
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\CarServiceAPIv2.genruntimeconfig.cache
 C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\bin\Debug\net5.0\ref\CarServiceAPIv2.dll
+C:\Users\kylys\source\repos\CarServiceAPIv2\CarServiceAPIv2\obj\Debug\net5.0\staticwebassets\CarServiceAPIv2.StaticWebAssets.xml

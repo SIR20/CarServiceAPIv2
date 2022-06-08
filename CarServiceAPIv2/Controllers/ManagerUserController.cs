@@ -5,28 +5,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarServiceAPIv2.Models;
 using CarServiceAPIv2.Models.SupportModels;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
+using System;
 
 namespace CarServiceAPIv2.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/ManagerUser")]
     [ApiController]
     public class ManagerUserController : BaseController
     {
-        public ManagerUserController(AppContext context) : base(context) { }
+        public ManagerUserController(Models.AppContext context) : base(context) { }
 
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("Users")]
         public ActionResult<List<SupportUser>> GetUsers()
         {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+
             return db.Users
-                .Select(i => new SupportUser(i.Id, i.Name, i.Number, i.IsBan))
-                .ToList();
+                    .Select(i => new SupportUser(i.Id, i.Name, i.Number, i.IsBan))
+                    .ToList();
         }
 
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("DeleteUser")]
         public async Task<ActionResult<User>> DeleteUser(int userId)
         {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
 
-            User user = db.Users.Where(i => i.Id == userId).FirstOrDefault();
+            User user = db.Users.FirstOrDefault(i => i.Id == userId);
             if (user != null)
             {
                 if (user.IsBan) db.Users.Remove(user);
@@ -40,9 +58,14 @@ namespace CarServiceAPIv2.Controllers
 
         }
 
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost("UnDeleteUser")]
         public async Task<ActionResult> UnDeleteUser(int userId)
         {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+
             User user = db.Users.Where(i => i.Id == userId).FirstOrDefault();
             if (user != null)
             {

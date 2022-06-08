@@ -12,9 +12,11 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Cors;
 
 namespace CarServiceAPIv2.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/User")]
     [ApiController]
     public class ClientUserController : BaseController
@@ -28,7 +30,7 @@ namespace CarServiceAPIv2.Controllers
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:key"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("ID", user.Id.ToString()), new Claim("Number",user.Number) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("ID", user.Id.ToString()), new Claim("Number",user.Number), new Claim("Role", "User") }),
                 Expires = DateTime.UtcNow.AddHours(72),
                 Issuer = _configuration["Jwt:Issuer"],
                 Audience = _configuration["Jwt:Audience"],
