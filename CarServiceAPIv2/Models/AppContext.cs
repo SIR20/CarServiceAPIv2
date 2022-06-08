@@ -26,7 +26,7 @@ namespace CarServiceAPIv2.Models
             Administrator takutokashi = new Administrator()
             {
                 Name = "Takutokashi",
-                Number = "93149773329",
+                Number = "9314977339",
                 Password = "AdminPassword"
             };
 

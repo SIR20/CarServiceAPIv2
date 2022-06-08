@@ -43,7 +43,8 @@ namespace CarServiceAPIv2.Controllers
             Worker worker = db.Workers.Where(i => i.Login == login && i.Password == password).FirstOrDefault();
             if (worker != null)
             {
-                return Ok(worker.Id);
+                string tokenString = GenerateJwtToken(worker);
+                return Ok(new { Token = tokenString, WorkerId = worker.Id });
             }
 
             return BadRequest("Неверный логин или пароль");

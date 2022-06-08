@@ -21,8 +21,7 @@ namespace CarServiceAPIv2.Controllers
     [ApiController]
     public class ManagerUserController : BaseController
     {
-        private readonly IConfiguration _configuration;
-        public ManagerUserController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
+        public ManagerUserController(Models.AppContext context) : base(context) { }
 
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("Users")]
@@ -41,8 +40,11 @@ namespace CarServiceAPIv2.Controllers
         [HttpDelete("DeleteUser")]
         public async Task<ActionResult<User>> DeleteUser(int userId)
         {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
 
-            User user = db.Users.Where(i => i.Id == userId).FirstOrDefault();
+            User user = db.Users.FirstOrDefault(i => i.Id == userId);
             if (user != null)
             {
                 if (user.IsBan) db.Users.Remove(user);
@@ -60,6 +62,10 @@ namespace CarServiceAPIv2.Controllers
         [HttpPost("UnDeleteUser")]
         public async Task<ActionResult> UnDeleteUser(int userId)
         {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+
             User user = db.Users.Where(i => i.Id == userId).FirstOrDefault();
             if (user != null)
             {
