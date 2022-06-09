@@ -19,10 +19,10 @@ namespace CarServiceAPIv2.Controllers
     [EnableCors("MyPolicy")]
     [Route("api/User")]
     [ApiController]
-    public class ClientController : BaseController
+    public class UserController : BaseController
     {
         private readonly IConfiguration _configuration;
-        public ClientController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
+        public UserController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
 
         private string GenerateJwtToken(User user)
         {
@@ -43,7 +43,7 @@ namespace CarServiceAPIv2.Controllers
         [HttpPost("Create")]
         public async Task<ActionResult> Create(string number, string password)
         {
-            if (db.Users.Any(i => i.Number == number)) return BadRequest("Пользователь с таким номером уже существует");
+            if (db.Users.Any(i => i.Number == number)) return BadRequest(new { Status = 1001});
             User user = new User()
             {
                 Number = number,
@@ -61,7 +61,7 @@ namespace CarServiceAPIv2.Controllers
             User user = db.Users.FirstOrDefault(i => i.Number == number && i.Password == password);
             if (user == null)
             {
-                return BadRequest("Неверный логин или пароль");
+                return BadRequest(new { Status = 1002 });
             }
 
             string tokenString = GenerateJwtToken(user);

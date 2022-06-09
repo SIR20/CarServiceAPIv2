@@ -51,7 +51,6 @@ namespace CarServiceAPIv2.Controllers
         }
 
 
-
         //User
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet("User/Users")]
@@ -67,7 +66,7 @@ namespace CarServiceAPIv2.Controllers
         }
 
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
-        [HttpDelete("User/DeleteUser")]
+        [HttpDelete("User/Delete")]
         public async Task<ActionResult<User>> DeleteUser(int userId)
         {
             string role = User.FindFirstValue("Role");
@@ -86,6 +85,26 @@ namespace CarServiceAPIv2.Controllers
 
             return BadRequest("Пользователь не найден");
 
+        }
+
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost("User/UnDelete")]
+        public async Task<ActionResult> UnDeleteUser(int userId)
+        {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+
+            User user = db.Users.Where(i => i.Id == userId).FirstOrDefault();
+            if (user != null)
+            {
+                user.IsBan = false;
+                db.Update(user);
+                await db.SaveChangesAsync();
+                return Ok();
+            }
+
+            return BadRequest("Пользователь не найден");
         }
 
         //Task

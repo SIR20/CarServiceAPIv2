@@ -14,7 +14,7 @@ using CarServiceAPIv2.Models.SupportModels;
 
 namespace CarServiceAPIv2.Controllers
 {
-    [Route("Admin")]
+    [Route("api/Admin")]
     public class AdminController : BaseController
     {
         IConfiguration _configuration;
@@ -37,9 +37,9 @@ namespace CarServiceAPIv2.Controllers
         }
 
         [HttpPost("Login")]
-        public IActionResult Login(string number, string password)
+        public IActionResult Login(string login, string password)
         {
-            Administrator admin = db.Adminstators.FirstOrDefault(i => i.Number == number && i.Password == password);
+            Administrator admin = db.Adminstators.FirstOrDefault(i => i.Login == login && i.Password == password);
             if (admin == null)
             {
                 return BadRequest("Неверный логин или пароль");
