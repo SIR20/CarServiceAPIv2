@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CarServiceAPIv2.Models
 {
@@ -16,22 +17,23 @@ namespace CarServiceAPIv2.Models
 
             //Database.EnsureDeleted();
             Database.EnsureCreated();
-            Administrator sir = new Administrator()
-            {
-                Name = "SIR",
-                Number = "9534906725",
-                Password = "AdminPassword"
-            };
+            if (!Adminstators.ToList().Any(i => i.Login == "SIR")){
+                Administrator sir = new Administrator()
+                {
+                    Login = "SIR",
+                    Password = "AdminPassword"
+                };
 
-            Administrator takutokashi = new Administrator()
-            {
-                Name = "Takutokashi",
-                Number = "9314977339",
-                Password = "AdminPassword"
-            };
+                Administrator takutokashi = new Administrator()
+                {
+                    Login = "Takutokashi",
+                    Password = "AdminPassword"
+                };
 
-            Adminstators.AddRange(sir, takutokashi);
-            SaveChanges();
+                Adminstators.AddRange(sir, takutokashi);
+
+                SaveChanges();
+            }
         }
     }
 }

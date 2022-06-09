@@ -7,8 +7,7 @@ namespace CarServiceAPIv2.Models
 {
     public class Administrator: BaseModel
     {
-        public string Name { get; set; }
-        public string Number { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
     }
 }

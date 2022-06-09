@@ -19,10 +19,10 @@ namespace CarServiceAPIv2.Controllers
     [EnableCors("MyPolicy")]
     [Route("api/User")]
     [ApiController]
-    public class ClientController : BaseController
+    public class UserController : BaseController
     {
         private readonly IConfiguration _configuration;
-        public ClientController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
+        public UserController(Models.AppContext context, IConfiguration configuration) : base(context) => _configuration = configuration;
 
         private string GenerateJwtToken(User user)
         {
