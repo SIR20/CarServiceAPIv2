@@ -40,14 +40,14 @@ namespace CarServiceAPIv2.Controllers
         [HttpPost("Login")]
         public ActionResult Login(string login, string password)
         {
-            Worker worker = db.Workers.Where(i => i.Login == login && i.Password == password).FirstOrDefault();
+            Worker worker = db.Workers.FirstOrDefault(i => i.Login == login && i.Password == password);
             if (worker != null)
             {
                 string tokenString = GenerateJwtToken(worker);
                 return Ok(new { Token = tokenString, WorkerId = worker.Id });
             }
 
-            return BadRequest("Неверный логин или пароль");
+            return BadRequest(new { Status = 1001 });
         }
 
 
