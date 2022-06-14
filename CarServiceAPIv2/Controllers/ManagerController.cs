@@ -11,6 +11,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using CarServiceAPIv2.Models.SupportModels;
+using CarServiceAPIv2.Models;
 
 namespace CarServiceAPIv2.Controllers
 {
@@ -108,5 +109,27 @@ namespace CarServiceAPIv2.Controllers
         }
 
         //Task
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost("Task/Item/Add")]
+        public async Task<ActionResult> GetTasks(string taskItem)
+        {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+            db.TaskLists.Add(new TaskList() { Name = taskItem });
+            await db.SaveChangesAsync();
+            return Ok();
+        }
+
+        [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("Task/Tasks")]
+        public ActionResult<List<Models.Task>> GetTasks()
+        {
+            string role = User.FindFirstValue("Role");
+            if (role != "Manager")
+                return BadRequest(new { Status = 401 });
+
+            return db.Tasks.ToList();
+        }
     }
 }

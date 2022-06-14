@@ -11,6 +11,7 @@ namespace CarServiceAPIv2.Models
         public string Description { get; set; }
         public int UserId { get; set; }
         public int CarId { get; set; }
+        public DateTime Date { get; set; }
         public string Status { get; set; }
     }
 }

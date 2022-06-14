@@ -46,7 +46,7 @@ namespace CarServiceAPIv2.Controllers
             }
 
             string tokenString = GenerateJwtToken(admin);
-            return Ok(new { Token = tokenString, UserId = admin.Id });
+            return Ok(new { Token = tokenString, AdminId = admin.Id });
         }
 
         [Authorize(AuthenticationSchemes = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme)]

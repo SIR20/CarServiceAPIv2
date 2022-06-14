@@ -10,6 +10,7 @@ namespace CarServiceAPIv2.Models
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Worker> Workers { get; set; }
         public DbSet<Administrator> Adminstators { get; set; }
+        public DbSet<TaskList> TaskLists { get; set; }
 
         public AppContext(DbContextOptions<AppContext> options)
             : base(options)

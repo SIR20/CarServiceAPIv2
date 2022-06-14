@@ -128,7 +128,8 @@ namespace CarServiceAPIv2.Controllers
                 Description = description,
                 UserId = userId,
                 CarId = carId,
-                Status = "Waiting"
+                Date = DateTime.Now,
+                Status = "Ожидание"
             };
             await db.Tasks.AddAsync(task);
             await db.SaveChangesAsync();
